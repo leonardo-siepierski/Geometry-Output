@@ -6,6 +6,8 @@ public class Program
     {
         string? input;
         GeometryOutput.AskForLetter();
+
+        GeometryOutput.GeneratePdf();
         do
         {
             Console.Write("Você deseja receber um email com o resultado? (S/N): ");

@@ -1,3 +1,5 @@
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 
@@ -129,5 +131,17 @@ public class GeometryOutput
 
         Console.WriteLine($"\nEmail enviado para {email}!\nPressione qualquer tecla para sair");
         Console.ReadKey();
+    }
+
+    public static void GeneratePdf()
+    {
+        using var fileStream = new FileStream("Diamond.pdf", FileMode.Create);
+        using var document = new Document();
+
+        PdfWriter.GetInstance(document, fileStream);
+        document.Open();
+
+        var diamondContent = new Paragraph(Diamond);
+        document.Add(diamondContent);
     }
 }
