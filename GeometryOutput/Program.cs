@@ -2,18 +2,34 @@
 
 public class Program
 {
-    public static void Main(string[] args)
+    public async static Task Main()
     {
+        string? input;
         GeometryOutput.AskForLetter();
-        Console.Write("Você deseja receber um email com o resultado? (S/N): ");
-        var input = Console.ReadLine();
-
-        if(input == "S")
+        do
         {
-            Console.Write("Digite seu endereço de email: ");
-            string? email = Console.ReadLine();
+            Console.Write("Você deseja receber um email com o resultado? (S/N): ");
+            input = Console.ReadLine();
 
-            GeometryOutput.SendEmail(email);
-        }
+            if(input == "S")
+            {
+                Console.Write("Digite seu endereço de email: ");
+                string? email = Console.ReadLine();
+
+                await GeometryOutput.SendEmail(email);
+            }
+
+            else if (input == "N")
+            {
+                Console.WriteLine("\nObrigado por utilizar o programa!\nDigite qualquer tecla para sair");
+                Console.ReadKey();
+            }
+
+            else
+            {
+                Console.WriteLine("Por favor, digite S ou N");
+                
+            }
+        } while (input != "S" && input != "N");
     }
 }

@@ -1,9 +1,10 @@
 using FluentAssertions;
 using Geometry_Output;
+using Microsoft.VisualStudio.TestPlatform.Utilities;
 
 namespace GeometryOutput_Test
 {
-    public class GeometryOutputTestWithValidInputs
+    public class GeometryOutputTest
     {
         [Theory]
         [InlineData("C",

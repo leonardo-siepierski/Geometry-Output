@@ -1,7 +1,11 @@
+using SendGrid;
+using SendGrid.Helpers.Mail;
+
 namespace Geometry_Output;
 
 public class GeometryOutput
 {
+    public static string? Diamond { get; set; }
     public static void AskForLetter()
     {
         char letter;
@@ -22,10 +26,9 @@ public class GeometryOutput
         GenerateDiamond(letter);
     }
 
-    public static string GenerateDiamond(char letter)
+    public static void GenerateDiamond(char letter)
     {
         int lines = (letter - 'A') * 2 + 1;
-        var output = new StringWriter();
 
         for (int i = 0; i <= letter - 'A'; i++)
         {
@@ -40,31 +43,32 @@ public class GeometryOutput
                     if (i == 0)
                     {
                         Console.Write('A');
-                        output.Write('A');
+                        Diamond += 'A';
                     }
                     else if (j == left)
                     {
                         Console.Write((char)('A' + i));
-                        output.Write((char)('A' + i));
+                        Diamond += (char)('A' + i);
                     }
                     else if (j == right)
                     {
                         Console.Write((char)('A' + i));
-                        output.Write((char)('A' + i));
+                        Diamond += (char)('A' + i);
                     }
                     else
                     {
                         Console.Write(" ");
-                        output.Write(" ");
+                        Diamond += "  ";
                     }
                 }
                 else
                 {
                     Console.Write(" ");
-                    output.Write(" ");
+                    Diamond += "  ";
                 }
             }
             Console.WriteLine();
+            Diamond += "\n";
         }
 
         for (int i = letter - 'A' - 1; i >= 0; i--)
@@ -80,38 +84,50 @@ public class GeometryOutput
                     if (i == 0)
                     {
                         Console.Write('A');
-                        output.Write('A');
+                        Diamond += 'A';
                     }
                     else if (j == left)
                     {
                         Console.Write((char)('A' + i));
-                        output.Write((char)('A' + i));
+                        Diamond += (char)('A' + i);
                     }
                     else if (j == right)
                     {
                         Console.Write((char)('A' + i));
-                        output.Write((char)('A' + i));
+                        Diamond += (char)('A' + i);
                     }
                     else
                     {
                         Console.Write(" ");
-                        output.Write(" ");
+                        Diamond += "  ";
                     }
                 }
                 else
                 {
                     Console.Write(" ");
-                    output.Write(" ");
+                    Diamond += "  ";
                 }
             }
             Console.WriteLine();
-            output.WriteLine();
+            Diamond += "\n";
         }
-        return output.ToString();
     }
 
-    public static void SendEmail(string? email)
+    public async static Task SendEmail(string? email)
     {
-        Console.WriteLine("Email enviado para " + email);
+        string apiKey = "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";
+        var client = new SendGridClient(apiKey);  
+        var senderEmail = new EmailAddress("leonardo.siepierski@gmail.com"); 
+
+        var receiverEmail = new EmailAddress(email);  
+        string emailSubject = "Diamante";
+        string? textContent = Diamond;
+        string htmlContent = "";
+
+        var msg = MailHelper.CreateSingleEmail(senderEmail, receiverEmail, emailSubject, textContent, htmlContent);
+        await client.SendEmailAsync(msg);
+
+        Console.WriteLine($"\nEmail enviado para {email}!\nPressione qualquer tecla para sair");
+        Console.ReadKey();
     }
 }
