@@ -117,7 +117,7 @@ public class GeometryOutput
 
     public async static Task SendEmail(string? email)
     {
-        string apiKey = "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";
+        string apiKey = Keys.ApiKey;
         var client = new SendGridClient(apiKey);  
         var senderEmail = new EmailAddress("leonardo.siepierski@gmail.com"); 
 
