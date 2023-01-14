@@ -10,4 +10,4 @@ Tenho em mente que o ideal seria utilizar uma ferramenta como um KMS ou uma vari
 
 ## Utilização do projeto
 
-Basta clonar o projeto, entrar na pasta GeometryOutput, rodar o comando ```dotnet restore``` e em seguida ```dotnet run```. Será gerado um pdf automaticamente, e o usuário poderá optar por receer um email com o resultado.
+Basta clonar o projeto, entrar na pasta GeometryOutput, adicionar a API key no arquivo ```SecretKeys```, rodar o comando ```dotnet restore``` e em seguida ```dotnet run```. Será gerado um pdf automaticamente, e o usuário poderá optar por receber um email com o resultado.
